@@ -37,7 +37,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.moutamid.tasker.Models.TaskModel;
 import com.moutamid.tasker.R;
 import com.moutamid.tasker.Utilities.Constants;
@@ -120,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
             holder.description.setText(tasksArrayList.get(position).getDescription());
             holder.category.setText(tasksArrayList.get(position).getCategory());
 
+            holder.date.setText(tasksArrayList.get(position).getCondition());
+
             holder.dropDownBtn.setOnClickListener(dropdown_btnClickListener(holder));
 
             ArrayList<HashMap<String, String>> subtaskListhash = tasksArrayList.get(position).getSubTasks();
@@ -143,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (count == subtaskListhash.size()) {
                 holder.completedImage.setVisibility(View.VISIBLE);
+                holder.pendingImage.setVisibility(View.GONE);
             }
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
@@ -234,20 +240,22 @@ public class MainActivity extends AppCompatActivity {
 
         public class ViewHolderRightMessage extends ViewHolder {
 
-            TextView title, description, category;
+            TextView title, description, category, date;
             ProgressBar progressBar;
             CardView parentLayout;
-            ImageView dropDownBtn, completedImage;
+            ImageView dropDownBtn, completedImage, pendingImage;
 
             public ViewHolderRightMessage(@NonNull View v) {
                 super(v);
                 title = v.findViewById(R.id.titleTextview);
+                date = v.findViewById(R.id.dateTextvieww);
                 progressBar = v.findViewById(R.id.progressbar_item_task);
                 parentLayout = v.findViewById(R.id.parent_layout_task_item);
                 description = v.findViewById(R.id.description_textview);
                 category = v.findViewById(R.id.category_textview);
                 dropDownBtn = v.findViewById(R.id.dropdown_btn);
                 completedImage = v.findViewById(R.id.completedImage);
+                pendingImage = v.findViewById(R.id.pendingImage);
 
             }
         }

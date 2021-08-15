@@ -24,7 +24,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.moutamid.tasker.Models.TaskModel;
 import com.moutamid.tasker.R;
 import com.moutamid.tasker.Utilities.Constants;
@@ -41,13 +44,32 @@ public class CreateTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
+        findViewById(R.id.task_condition_create_task1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialDatePicker datePicker= MaterialDatePicker.Builder.dateRangePicker()
+                        .setTitleText("Select start and end date")
+                        .build();
+                datePicker.show(getSupportFragmentManager(),"tag");
+                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        TextView condition = findViewById(R.id.task_condition_create_task);
+                        condition.setText(datePicker.getHeaderText());
+                        datePicker.dismiss();
+                    }
+                });
+
+            }
+        });
+
         findViewById(R.id.done_btn_create_task).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 EditText name = findViewById(R.id.task_name_create_task);
                 EditText description = findViewById(R.id.task_description_create_task);
-                EditText condition = findViewById(R.id.task_condition_create_task);
+                TextView condition = findViewById(R.id.task_condition_create_task);
 
                 RadioButton impRadioBtn = findViewById(importantRadioBtn_create_task);
                 RadioButton urgentRadioBtn = findViewById(urgentRadioBtn_create_task);

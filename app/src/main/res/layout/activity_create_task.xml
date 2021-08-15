@@ -121,24 +121,27 @@
             app:strokeColor="@color/grey"
             app:strokeWidth="2dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/task_condition_create_task1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone">
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            app:strokeColor="@color/grey"
+            app:strokeWidth="1dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
                 android:id="@+id/task_condition_create_task"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Task condition"
-                android:inputType="text"
-                android:maxLines="1"
-                android:text="null" />
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical|start"
+                android:paddingStart="15dp"
+                android:text="Select start and end date" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
