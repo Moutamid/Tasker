@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     tasksArrayList.remove(position);
                     adapter.notifyDataSetChanged();
 
+                    store(Constants.STORED_ARRAYLIST, tasksArrayList);
                     return false;
                 }
             });
