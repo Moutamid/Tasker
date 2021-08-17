@@ -155,11 +155,23 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Clicklistener(subtaskListhash);
+                    Intent intent = new Intent(MainActivity.this, CreateTaskActivity.class);
+                    intent.putExtra(Constants.PARAM, position);
+                    startActivity(new Intent(MainActivity.this, CreateTaskActivity.class));
+
+//                    Clicklistener(subtaskListhash);
                 }
             });
 
-//         setprogressbarColor(holder.progressBar, );
+            holder.parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    tasksArrayList.remove(position);
+                    adapter.notifyDataSetChanged();
+
+                    return false;
+                }
+            });
 
         }
 

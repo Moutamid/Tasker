@@ -38,19 +38,50 @@ import java.util.HashMap;
 public class CreateTaskActivity extends AppCompatActivity {
 
     private ArrayList<HashMap<String, String>> subTasksList = new ArrayList<>();
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
+        tasksArrayList.clear();
+        tasksArrayList = getArrayList(Constants.STORED_ARRAYLIST, TaskModel.class);
+
+        if (getIntent().hasExtra(Constants.PARAM)) {
+
+            position = getIntent().getIntExtra(Constants.PARAM, 999);
+            tasksArrayList.remove(position);
+
+            EditText name = findViewById(R.id.task_name_create_task);
+            EditText description = findViewById(R.id.task_description_create_task);
+            TextView condition = findViewById(R.id.task_condition_create_task);
+
+            RadioButton impRadioBtn = findViewById(importantRadioBtn_create_task);
+            RadioButton urgentRadioBtn = findViewById(urgentRadioBtn_create_task);
+
+            name.setText(tasksArrayList.get(position).getName());
+            description.setText(tasksArrayList.get(position).getDescription());
+            condition.setText(tasksArrayList.get(position).getCondition());
+
+            if (tasksArrayList.get(position).getCategory().equals(Constants.IMPORTANT)) {
+                impRadioBtn.setChecked(true);
+            } else {
+                urgentRadioBtn.setChecked(true);
+            }
+
+            subTasksList.clear();
+            subTasksList = tasksArrayList.get(position).getSubTasks();
+
+        }
+
         findViewById(R.id.task_condition_create_task1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MaterialDatePicker datePicker= MaterialDatePicker.Builder.dateRangePicker()
+                MaterialDatePicker datePicker = MaterialDatePicker.Builder.dateRangePicker()
                         .setTitleText("Select start and end date")
                         .build();
-                datePicker.show(getSupportFragmentManager(),"tag");
+                datePicker.show(getSupportFragmentManager(), "tag");
                 datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
@@ -97,8 +128,17 @@ public class CreateTaskActivity extends AppCompatActivity {
                 taskModel.setDescription(descriptionStr);
                 taskModel.setSubTasks(subTasksList);
 
-                tasksArrayList.clear();
-                tasksArrayList = getArrayList(Constants.STORED_ARRAYLIST, TaskModel.class);
+                if (getIntent().hasExtra(Constants.PARAM)) {
+                    if (position != 999) {
+
+                        tasksArrayList.add(position, taskModel);
+                        store(Constants.STORED_ARRAYLIST, tasksArrayList);
+
+                        finish();
+                        return;
+                    }
+                }
+
                 tasksArrayList.add(taskModel);
                 store(Constants.STORED_ARRAYLIST, tasksArrayList);
 
