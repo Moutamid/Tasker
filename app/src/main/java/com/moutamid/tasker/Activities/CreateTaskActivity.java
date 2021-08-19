@@ -51,7 +51,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (getIntent().hasExtra(Constants.PARAM)) {
 
             position = getIntent().getIntExtra(Constants.PARAM, 999);
-            tasksArrayList.remove(position);
 
             EditText name = findViewById(R.id.task_name_create_task);
             EditText description = findViewById(R.id.task_description_create_task);
@@ -72,6 +71,8 @@ public class CreateTaskActivity extends AppCompatActivity {
 
             subTasksList.clear();
             subTasksList = tasksArrayList.get(position).getSubTasks();
+
+            tasksArrayList.remove(position);
 
         }
 

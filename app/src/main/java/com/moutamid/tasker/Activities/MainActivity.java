@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(MainActivity.this, CreateTaskActivity.class);
                     intent.putExtra(Constants.PARAM, position);
-                    startActivity(new Intent(MainActivity.this, CreateTaskActivity.class));
+                    startActivity(intent);
 
 //                    Clicklistener(subtaskListhash);
                 }
